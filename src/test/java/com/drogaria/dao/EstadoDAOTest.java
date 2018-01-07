@@ -27,8 +27,12 @@ public class EstadoDAOTest {
 		EstadoDAO estadoDAO = new EstadoDAO();
 		List<Estado> resultado = estadoDAO.listar();
 
-		for (Estado estado : resultado) {
-			System.out.println(estado.getSigla() + " - " + estado.getNome());
+		if (resultado.isEmpty()) {
+			System.out.println("Nenhum registro encontrado");
+		} else {
+			for (Estado estado : resultado) {
+				System.out.println(estado.getSigla() + " - " + estado.getNome());
+			}
 		}
 	}
 
@@ -41,7 +45,7 @@ public class EstadoDAOTest {
 		Estado estado = estadoDAO.buscar(codigo);
 
 		if (estado == null) {
-			System.out.println("Nenhum registro encontrado.");
+			System.out.println("Registro não encontrado.");
 		} else {
 			System.out.println(estado.getSigla() + " - " + estado.getNome());
 		}
@@ -55,28 +59,29 @@ public class EstadoDAOTest {
 
 		EstadoDAO estadoDAO = new EstadoDAO();
 		Estado estado = estadoDAO.buscar(codigo);
-		
+
 		if (estado == null) {
-			System.out.println("Nenhum registro encontrado.");
+			System.out.println("Registro não encontrado.");
 		} else {
 			estadoDAO.excluir(estado);
-			System.out.println("registro removido com sucesso.");
+			System.out.println("Registro removido com sucesso.");
 		}
 	}
-	
+
 	@Test
+	@Ignore
 	public void editar() {
 		Long codigo = 3L;
 
 		EstadoDAO estadoDAO = new EstadoDAO();
 		Estado estado = estadoDAO.buscar(codigo);
-		
+
 		if (estado == null) {
-			System.out.println("Nenhum registro encontrado.");
-		}else {
+			System.out.println("Registro não encontrado.");
+		} else {
 			estado.setSigla("CE");
 			estadoDAO.editar(estado);
-			System.out.println("Registro editado com sucesso.");
+			System.out.println("Registro alterado com sucesso.");
 		}
 	}
 
