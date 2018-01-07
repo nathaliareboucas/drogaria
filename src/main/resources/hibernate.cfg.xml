@@ -33,14 +33,17 @@
 		<property name="hbm2ddl.auto">create</property>
 		
 		<!-- Mapeamento das entidades -->
+		<mapping class="com.drogaria.domain.Cidade"/>
+		<mapping class="com.drogaria.domain.Cliente"/>
 		<mapping class="com.drogaria.domain.Estado"/>
 		<mapping class="com.drogaria.domain.Fabricante"/>
-		<mapping class="com.drogaria.domain.Cidade"/>
-		<mapping class="com.drogaria.domain.Produto"/>
-		<mapping class="com.drogaria.domain.Pessoa"/>
-		<mapping class="com.drogaria.domain.Cliente"/>
 		<mapping class="com.drogaria.domain.Funcionario"/>
+		<mapping class="com.drogaria.domain.ItemVenda"/>
+		<mapping class="com.drogaria.domain.Pessoa"/>
+		<mapping class="com.drogaria.domain.Produto"/>
 		<mapping class="com.drogaria.domain.Usuario"/>
+		<mapping class="com.drogaria.domain.Venda"/>
+		
 		
 	</session-factory>
 
