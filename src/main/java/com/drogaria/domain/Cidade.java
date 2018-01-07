@@ -2,24 +2,20 @@ package com.drogaria.domain;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
 
 @SuppressWarnings("serial")
 @Entity
-public class Estado extends GenericDomain {
-
-	@Column(length = 2, nullable = false)
-	private String sigla;
+public class Cidade extends GenericDomain {
 
 	@Column(length = 50, nullable = false)
 	private String nome;
 
-	public String getSigla() {
-		return sigla;
-	}
-
-	public void setSigla(String sigla) {
-		this.sigla = sigla;
-	}
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Estado estado;
 
 	public String getNome() {
 		return nome;
@@ -27,6 +23,14 @@ public class Estado extends GenericDomain {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 }
