@@ -13,17 +13,17 @@ public class PessoaDAOTest {
 	@Ignore
 	public void salvar() {
 		Pessoa pessoa = new Pessoa();
-		pessoa.setNome("Maria");
-		pessoa.setCpf("123.444.123-00");
-		pessoa.setRg("12345234579");
-		pessoa.setRua("Rua Pinto Madeira");
-		pessoa.setNumero(new Short("2345"));
-		pessoa.setBairro("Centro");
-		pessoa.setCep("60110-123");
+		pessoa.setNome("João");
+		pessoa.setCpf("123.123.123-00");
+		pessoa.setRg("8764534579");
+		pessoa.setRua("Rua Santos Dumont");
+		pessoa.setNumero(new Short("145"));
+		pessoa.setBairro("Aldeota");
+		pessoa.setCep("60110-333");
 		pessoa.setComplemento("A");
-		pessoa.setTelefone("(88)3254-1212");
-		pessoa.setCelular("(88)98888-7899");
-		pessoa.setEmail("maria@email.com");
+		pessoa.setTelefone("(88)3222-3432");
+		pessoa.setCelular("(88)99999-9999");
+		pessoa.setEmail("joao@email.com");
 
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		pessoaDAO.salvar(pessoa);
@@ -37,7 +37,7 @@ public class PessoaDAOTest {
 		PessoaDAO pessoaDAO = new PessoaDAO();
 		List<Pessoa> resultado = pessoaDAO.listar();
 
-		if (resultado == null) {
+		if (resultado.isEmpty()) {
 			System.out.println("Nenhum registro encontrado.");
 		} else {
 			for (Pessoa pessoa : resultado) {

@@ -17,7 +17,7 @@ public class CidadeDAOTest {
 		Estado estado = estadoDAO.buscar(3L);
 
 		Cidade cidade = new Cidade();
-		cidade.setNome("Quixadá");
+		cidade.setNome("Rio de Janeiro");
 		cidade.setEstado(estado);
 
 		CidadeDAO cidadeDAO = new CidadeDAO();

@@ -15,13 +15,13 @@ public class ProdutoDAOTest {
 	@Ignore
 	public void salvar() {
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
-		Fabricante fabricante = fabricanteDAO.buscar(7L);
+		Fabricante fabricante = fabricanteDAO.buscar(3L);
 		
 		Produto produto = new Produto();
-		produto.setDescricao("Sabonete");
+		produto.setDescricao("Desodorante");
 		produto.setFabricante(fabricante);
-		produto.setQuantidade(new Short("10"));
-		produto.setPreco(new BigDecimal("2.00"));
+		produto.setQuantidade(new Short("5"));
+		produto.setPreco(new BigDecimal("10.00"));
 		
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		produtoDAO.salvar(produto);
@@ -35,7 +35,7 @@ public class ProdutoDAOTest {
 		ProdutoDAO produtoDAO = new ProdutoDAO();
 		List<Produto> resultado = produtoDAO.listar();
 		
-		if (resultado == null) {
+		if (resultado.isEmpty()) {
 			System.out.println("Nenhum registro encontrado.");
 		} else {
 			for (Produto produto:resultado) {

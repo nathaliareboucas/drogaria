@@ -13,7 +13,7 @@ public class FabricanteDAOTest {
 	@Ignore
 	public void salvar() {
 		Fabricante fabricante = new Fabricante();
-		fabricante.setDescricao("Novalgina");
+		fabricante.setDescricao("Rexona");
 
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		fabricanteDAO.salvar(fabricante);

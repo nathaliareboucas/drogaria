@@ -13,8 +13,8 @@ public class EstadoDAOTest {
 	@Ignore
 	public void salvar() {
 		Estado estado = new Estado();
-		estado.setNome("Ceará");
-		estado.setSigla("CE");
+		estado.setNome("Rio de Janeiro");
+		estado.setSigla("RJ");
 
 		EstadoDAO estadoDAO = new EstadoDAO();
 		estadoDAO.salvar(estado);
