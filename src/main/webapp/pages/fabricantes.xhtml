@@ -6,12 +6,12 @@
 	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Estados</title>
+	<title>Fabricantes</title>
 </h:head>
 <h:body>
-	<p:panel header="Estados">
+	<p:panel header="Fabricantes">
 		<h:form>
-			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
+			<p:commandButton value="Novo" oncomplete="PF('dlgFabricante').show();" />
 			<br />
 			<br />
 
@@ -19,11 +19,8 @@
 				paginator="true" paginatorPosition="bottom">
 				<p:column headerText="Código">
 				</p:column>
-				
-				<p:column headerText="Nome">
-				</p:column>
 
-				<p:column headerText="Sigla">
+				<p:column headerText="Descrição">
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -32,20 +29,18 @@
 		</h:form>
 	</p:panel>
 
-	<p:dialog header="Cadastro de Estados" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
+	<p:dialog header="Cadastro de Fabricantes" widgetVar="dlgFabricante"
+		closable="false" resizable="false" draggable="false" modal="true">
 		<h:form>
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Nome" />
+				<p:outputLabel value="Descrição" />
 				<p:inputText size="50" maxlength="50" />
-
-				<p:outputLabel value="Sigla" />
-				<p:inputText size="10" maxlength="2" />
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
+				<p:commandButton value="Cancelar"
+					oncomplete="PF('dlgFabricante').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
