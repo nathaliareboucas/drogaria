@@ -79,5 +79,21 @@ public class FabricanteDAOTest {
 			System.out.println("Registro alterado com sucesso.");
 		}
 	}
+	
+	@Test
+//	@Ignore
+	public void merge() {
+	/*	Fabricante fabricante = new Fabricante();
+		fabricante.setDescricao("Seda");
+
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		fabricanteDAO.merge(fabricante);
+		System.out.println("Registro salvo com sucesso."); */
+		
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		Fabricante fabricante = fabricanteDAO.buscar(4L);
+		fabricante.setDescricao("Sed");
+		fabricanteDAO.merge(fabricante);
+	}
 
 }
