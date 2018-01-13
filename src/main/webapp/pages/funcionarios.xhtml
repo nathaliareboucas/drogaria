@@ -6,12 +6,12 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Usuários</title>
+	<title>Funcionários</title>
 </h:head>
 <h:body>
-	<p:panel header="Usuários">
+	<p:panel header="Funcionários">
 		<h:form>
-			<p:commandButton value="Novo" oncomplete="PF('dlgUsuario').show();" />
+			<p:commandButton value="Novo" oncomplete="PF('dlgFuncionario').show();"/>
 			<br />
 			<br />
 
@@ -23,45 +23,38 @@
 				<p:column headerText="Nome">
 				</p:column>
 
-				<p:column headerText="Tipo">
+				<p:column headerText="Carteira de trabalho">
 				</p:column>
 
-				<p:column headerText="Ativo">
+				<p:column headerText="Data de admissão">
 				</p:column>
-
+				
 				<p:column headerText="Opções">
 				</p:column>
 			</p:dataTable>
 		</h:form>
 	</p:panel>
 
-	<p:dialog header="Cadastro de Usuários" widgetVar="dlgUsuario"
+	<p:dialog header="Cadastro de Funcionários" widgetVar="dlgFuncionario"
 		draggable="false" resizable="false" closable="false" modal="true">
 		<h:form>
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Usuário" />
+				<p:outputLabel value="Funcionário" />
 				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Selecione um usuário" />
+					<f:selectItem itemValue="" itemLabel="Selecione um funcionário." />
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Senha" />
-				<p:password size="20" maxlength="8" />
+				<p:outputLabel value="Carteira de trabalho" />
+				<p:inputText size="20" maxlength="15" />
 
-				<p:outputLabel value="Tipo" />
-				<p:selectOneRadio>
-					<f:selectItem itemValue="A" itemLabel="Administrador" />
-					<f:selectItem itemValue="G" itemLabel="Gerente" />
-					<f:selectItem itemValue="B" itemLabel="Balconista" />
-				</p:selectOneRadio>
-
-				<p:outputLabel value="Ativo" />
-				<p:selectBooleanCheckbox value="" />
+				<p:outputLabel value="Data de admissão" />
+				<p:calendar />
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
 				<p:commandButton value="Salvar" />
 				<p:commandButton value="Cancelar"
-					oncomplete="PF('dlgUsuario').hide();" />
+					oncomplete="PF('dlgFuncionario').hide();" />
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
