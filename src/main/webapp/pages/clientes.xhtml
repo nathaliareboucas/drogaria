@@ -11,7 +11,7 @@
 <h:body>
 	<p:panel header="Clientes">
 		<h:form>
-			<p:commandButton value="Novo" oncomplete="PF('dlgCliente').show();" />
+			<p:button value="Novo" outcome="cadastroClientes.xhtml"/>
 			<br />
 			<br />
 
@@ -40,30 +40,5 @@
 			</p:dataTable>
 		</h:form>
 	</p:panel>
-
-	<p:dialog header="Cadastro de clientes" widgetVar="dlgCliente"
-		draggable="false" resizable="false" closable="false" modal="true">
-		<h:form>
-			<h:panelGrid columns="4">
-				<p:outputLabel value="Nome" />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Selecione um cliente."/>
-				</p:selectOneMenu>
-				<p:outputLabel value="CPF" />
-				<p:inputText size="20" maxlength="14" />
-
-				<p:outputLabel value="Telefone" />
-				<p:inputText size="20" maxlength="13" />
-				<p:outputLabel value="Liberado" />
-				<p:selectBooleanCheckbox/>
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
-				<p:commandButton value="Cancelar"
-					oncomplete="PF('dlgCliente').hide();" />
-			</h:panelGrid>
-		</h:form>
-	</p:dialog>
 </h:body>
 </html>
