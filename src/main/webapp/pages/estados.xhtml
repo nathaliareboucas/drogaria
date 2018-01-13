@@ -9,6 +9,8 @@
 	<title>Estados</title>
 </h:head>
 <h:body>
+	<p:growl id="mensagem" />
+
 	<p:panel header="Estados">
 		<h:form>
 			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();" />
@@ -19,7 +21,7 @@
 				paginator="true" paginatorPosition="bottom">
 				<p:column headerText="Código">
 				</p:column>
-				
+
 				<p:column headerText="Nome">
 				</p:column>
 
@@ -44,7 +46,8 @@
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar"
+					actionListener="#{estadoBean.salvar}" update=":mensagem" />
 				<p:commandButton value="Cancelar" oncomplete="PF('dialogo').hide();" />
 			</h:panelGrid>
 		</h:form>
