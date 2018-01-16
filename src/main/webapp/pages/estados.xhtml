@@ -18,9 +18,10 @@
 			<br />
 			<br />
 
-			<p:dataTable id="dtEstados" emptyMessage="Nenhum registro encontrado."
-				paginator="true" paginatorPosition="bottom"
-				value="#{estadoBean.estados}" var="estado" rows="3">
+			<p:dataTable id="dtEstados"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				paginatorPosition="bottom" value="#{estadoBean.estados}"
+				var="estado" rows="10">
 				<p:column headerText="Código">
 					<h:outputText value="#{estado.codigo}" />
 				</p:column>
@@ -34,11 +35,17 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash" actionListener="#{estadoBean.excluir}"
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{estadoBean.excluir}"
 						update=":mensagem :frmListaEstados:dtEstados">
 						<p:confirm header="Excluir" message="Deseja excluir o estado?"
 							icon="ui-icon-alert" />
-							<f:attribute name="estadoSelecionado" value="#{estado}"/>
+						<f:attribute name="estadoSelecionado" value="#{estado}" />
+					</p:commandButton>
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{estadoBean.editar}" update=":frmCadastroEstado:painel"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="estadoSelecionado" value="#{estado}" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>

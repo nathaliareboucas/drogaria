@@ -32,7 +32,7 @@ public class EstadoBean implements Serializable {
 
 	public void salvar() {
 		try {
-			estadoDAO.salvar(estado);
+			estadoDAO.merge(estado);
 			Messages.addGlobalInfo("Estado salvo com sucesso.");
 			estado = new Estado();
 			listar();
@@ -61,6 +61,10 @@ public class EstadoBean implements Serializable {
 			Messages.addGlobalError("Erro ao excluir estado.");
 			error.printStackTrace();
 		}
+	}
+	
+	public void editar(ActionEvent evento) {
+		estado = (Estado) evento.getComponent().getAttributes().get("estadoSelecionado");		
 	}
 
 	public Estado getEstado() {
