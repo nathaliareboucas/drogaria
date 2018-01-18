@@ -10,7 +10,6 @@ import javax.persistence.MappedSuperclass;
 @SuppressWarnings("serial")
 @MappedSuperclass
 public class GenericDomain implements Serializable {
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long codigo;
@@ -23,4 +22,8 @@ public class GenericDomain implements Serializable {
 		this.codigo = codigo;
 	}
 
+	@Override
+	public String toString() {
+		return String.format("%s[codigo=%d]", getClass().getSimpleName(), getCodigo());
+	}
 }
