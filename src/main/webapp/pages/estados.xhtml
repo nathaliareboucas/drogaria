@@ -63,13 +63,15 @@
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="frmCadastroEstado">
 			<h:panelGrid columns="2" id="painel">
-				<p:outputLabel value="Nome" />
-				<p:inputText size="50" maxlength="50"
-					value="#{estadoBean.estado.nome}" />
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:inputText id="nome" size="50" maxlength="50"
+					value="#{estadoBean.estado.nome}" required="true"
+					requiredMessage="O campo 'Nome' é obrigatório."/>
 
-				<p:outputLabel value="Sigla" />
-				<p:inputText size="10" maxlength="2"
-					value="#{estadoBean.estado.sigla}" />
+				<p:outputLabel value="Sigla" for="sigla"/>
+				<p:inputText id="sigla" size="10" maxlength="2"
+					value="#{estadoBean.estado.sigla}" required="true"
+					requiredMessage="O campo 'Sigla é obrigatório'."/>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
