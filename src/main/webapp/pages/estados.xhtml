@@ -14,7 +14,10 @@
 	<p:panel header="Estados">
 		<h:form id="frmListaEstados">
 			<p:commandButton value="Novo" oncomplete="PF('dialogo').show();"
-				update=":frmCadastroEstado:painel" />
+				update=":frmCadastroEstado:painel">
+				<f:actionListener
+					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+			</p:commandButton>
 			<br />
 			<br />
 
@@ -43,7 +46,8 @@
 						<f:attribute name="estadoSelecionado" value="#{estado}" />
 					</p:commandButton>
 					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{estadoBean.editar}" update=":frmCadastroEstado:painel"
+						actionListener="#{estadoBean.editar}"
+						update=":frmCadastroEstado:painel"
 						oncomplete="PF('dialogo').show();">
 						<f:attribute name="estadoSelecionado" value="#{estado}" />
 					</p:commandButton>
@@ -63,15 +67,15 @@
 		draggable="false" resizable="false" modal="true" closable="false">
 		<h:form id="frmCadastroEstado">
 			<h:panelGrid columns="2" id="painel">
-				<p:outputLabel value="Nome" for="nome"/>
+				<p:outputLabel value="Nome" for="nome" />
 				<p:inputText id="nome" size="50" maxlength="50"
 					value="#{estadoBean.estado.nome}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório."/>
+					requiredMessage="O campo 'Nome' é obrigatório." />
 
-				<p:outputLabel value="Sigla" for="sigla"/>
+				<p:outputLabel value="Sigla" for="sigla" />
 				<p:inputText id="sigla" size="10" maxlength="2"
 					value="#{estadoBean.estado.sigla}" required="true"
-					requiredMessage="O campo 'Sigla é obrigatório'."/>
+					requiredMessage="O campo 'Sigla é obrigatório'." />
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">

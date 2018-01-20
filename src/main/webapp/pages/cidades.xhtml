@@ -16,7 +16,9 @@
 			<p:commandButton value="Novo"
 				actionListener="#{cidadeBean.listaEstados}"
 				oncomplete="PF('dialogo').show();"
-				update=":mensagem :formCadastro:painel" />
+				update=":mensagem :formCadastro:painel">
+				<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+			</p:commandButton>
 			<br />
 			<br />
 
