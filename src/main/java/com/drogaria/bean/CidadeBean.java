@@ -28,13 +28,12 @@ public class CidadeBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		cidade = new Cidade();
+		cidadeDAO = new CidadeDAO();
 		listar();
 	}
 
 	public void salvar() {
 		try {
-			cidadeDAO = new CidadeDAO();
 			cidadeDAO.merge(cidade);
 			cidade = new Cidade();
 			listar();
@@ -47,7 +46,6 @@ public class CidadeBean implements Serializable {
 
 	public void listar() {
 		try {
-			CidadeDAO cidadeDAO = new CidadeDAO();
 			cidades = cidadeDAO.listar();
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar as cidades");
@@ -68,7 +66,6 @@ public class CidadeBean implements Serializable {
 	public void excluir(ActionEvent evento) {
 		cidade = (Cidade) evento.getComponent().getAttributes().get("cidadeSelecionada");
 		try {
-			cidadeDAO = new CidadeDAO();
 			cidadeDAO.excluir(cidade);
 			Messages.addGlobalInfo("Cidade excuída com sucesso.");
 			listar();
@@ -76,6 +73,11 @@ public class CidadeBean implements Serializable {
 			Messages.addGlobalError("Erro ao tentar excluir a cidade.");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void novo() {
+		cidade = new Cidade();
+		listaEstados();
 	}
 
 	public void editar(ActionEvent evento) {

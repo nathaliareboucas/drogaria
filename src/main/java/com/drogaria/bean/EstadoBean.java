@@ -25,7 +25,6 @@ public class EstadoBean implements Serializable {
 
 	@PostConstruct
 	public void init() {
-		estado = new Estado();
 		estadoDAO = new EstadoDAO();
 		listar();
 	}
@@ -40,7 +39,7 @@ public class EstadoBean implements Serializable {
 			Messages.addGlobalError("Erro ao salvar o estado.");
 			error.printStackTrace();
 		}
-	}
+	}	
 
 	public void listar() {
 		try {
@@ -61,6 +60,10 @@ public class EstadoBean implements Serializable {
 			Messages.addGlobalError("Erro ao excluir estado.");
 			error.printStackTrace();
 		}
+	}
+	
+	public void novo() {
+		estado = new Estado();
 	}
 	
 	public void editar(ActionEvent evento) {
