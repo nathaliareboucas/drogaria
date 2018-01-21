@@ -65,8 +65,8 @@
 		closable="false" resizable="false" draggable="false" modal="true">
 		<h:form id="frmCadastroFabricantes">
 			<h:panelGrid columns="2" id="painel">
-				<p:outputLabel value="Descrição" />
-				<p:inputText size="50" maxlength="50"
+				<p:outputLabel value="Descrição" for="descricao"/>
+				<p:inputText size="50" maxlength="50" id="descricao"
 					value="#{fabricanteBean.fabricante.descricao}" required="true"
 					requiredMessage="O campo 'Descrição' é obrigatório." />
 			</h:panelGrid>

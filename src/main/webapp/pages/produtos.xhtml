@@ -9,30 +9,50 @@
 	<title>Produtos</title>
 </h:head>
 <h:body>
+	<p:growl id="mensagem" />
+
 	<p:panel header="Produtos">
-		<h:form>
-			<p:commandButton value="Novo" oncomplete="PF('dlgProduto').show();" />
+		<h:form id="frmProdutos">
+			<p:commandButton value="Novo" actionListener="#{produtoBean.novo}"
+				update=":mensagem :frmCadastroProdutos:painel"
+				oncomplete="PF('dlgProduto').show();">
+				<f:actionListener
+					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+			</p:commandButton>
 			<br />
 			<br />
 
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" paginatorPosition="bottom">
-				<p:column headerText="Código">
+			<p:dataTable id="dtProdutos"
+				emptyMessage="Nenhum registro encontrado." paginator="true"
+				paginatorPosition="bottom" rows="10" value="#{produtoBean.produtos}"
+				var="produto">
+				<p:column headerText="Código" sortBy="#{produto.codigo}">
+					<h:outputText value="#{produto.codigo}" />
 				</p:column>
 
-				<p:column headerText="Descrição">
+				<p:column headerText="Descrição" sortBy="#{produto.descricao}">
+					<h:outputText value="#{produto.descricao}" />
 				</p:column>
 
-				<p:column headerText="Quantidade">
+				<p:column headerText="Quantidade" sortBy="#{produto.quantidade}">
+					<h:outputText value="#{produto.quantidade}" />
 				</p:column>
 
-				<p:column headerText="Fabricante">
+				<p:column headerText="Fabricante"
+					sortBy="#{produto.fabricante.descricao}">
+					<h:outputText value="#{produto.fabricante.descricao}" />
 				</p:column>
 
-				<p:column headerText="Preço">
+				<p:column headerText="Preço" sortBy="#{produto.preco}">
+					<h:outputText value="#{produto.preco}" />
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash">
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil">
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>
@@ -40,27 +60,44 @@
 
 	<p:dialog header="Cadastro de Produtos" widgetVar="dlgProduto"
 		draggable="false" resizable="false" closable="false" modal="true">
-		<h:panelGrid columns="4">
-			<p:outputLabel value="Descrição" />
-			<p:inputText size="50" maxlength="80" />
+		<h:form id="frmCadastroProdutos">
+			<h:panelGrid columns="4" id="painel">
+				<p:outputLabel value="Descrição" for="descricao" />
+				<p:inputText size="50" maxlength="80" id="descricao"
+					value="#{produtoBean.produto.descricao}" required="true"
+					requiredMessage="O campo 'Descrição é obrigatório'" />
 
-			<p:outputLabel value="Quantidade" />
-			<p:inputText maxlength="9" size="10"/>
+				<p:outputLabel value="Quantidade" for="quantidade" />
+				<p:inputText maxlength="9" size="10" id="quantidade"
+					value="#{produtoBean.produto.quantidade}" required="true"
+					requiredMessage="O campo 'Quantidade' é obrigatório"
+					converterMessage="O valor informado no campo 'Quantidade' é inválido" />
+				
+				<p:outputLabel value="Fabricante" for="fabricante" />
+				<p:selectOneMenu id="fabricante" filter="true"
+					value="#{produtoBean.produto.fabricante}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="É obrigatório selecionar um 'Fabricante'.">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione um fabricante." />
+					<f:selectItems value="#{produtoBean.fabricantes}" var="fabricante"
+						itemValue="#{fabricante}" itemLabel="#{fabricante.descricao}" />
+				</p:selectOneMenu>
 
-			<p:outputLabel value="Fabricante" />
-			<p:selectOneMenu filter="true">
-				<f:selectItem itemValue="" itemLabel="Selecione um fabricante." />
-			</p:selectOneMenu>
+				<p:outputLabel value="Preço" for="preco" />
+				<p:inputNumber maxValue="99999" size="10" id="preco"
+					value="#{produtoBean.produto.preco}" required="true"
+					requiredMessage="O campo 'Preço' é obrigatório"
+					converterMessage="O valor informado no campo 'Preço' é inválido" />
+			</h:panelGrid>
 
-			<p:outputLabel value="Preço" />
-			<p:inputNumber maxValue="99999" size="10"/>
-		</h:panelGrid>
-
-		<h:panelGrid columns="2">
-			<p:commandButton value="Salvar" />
-			<p:commandButton value="Cancelar"
-				oncomplete="PF('dlgProduto').hide();" />
-		</h:panelGrid>
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar" actionListener="#{produtoBean.salvar}"
+					update=":mensagem :frmProdutos:dtProdutos :frmCadastroProdutos:painel" />
+				<p:commandButton value="Cancelar"
+					oncomplete="PF('dlgProduto').hide();" />
+			</h:panelGrid>
+		</h:form>
 	</p:dialog>
 </h:body>
 </html>
