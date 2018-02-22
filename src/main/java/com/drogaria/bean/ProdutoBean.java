@@ -68,6 +68,7 @@ public class ProdutoBean implements Serializable {
 	public void novo() {
 		produto = new Produto();
 		listarFabricantes();
+
 	}
 
 	public Produto getProduto() {

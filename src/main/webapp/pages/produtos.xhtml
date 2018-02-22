@@ -44,7 +44,9 @@
 				</p:column>
 
 				<p:column headerText="Preço" sortBy="#{produto.preco}">
-					<h:outputText value="#{produto.preco}" />
+					<h:outputText value="#{produto.preco}" >
+						<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -65,13 +67,16 @@
 				<p:outputLabel value="Descrição" for="descricao" />
 				<p:inputText size="50" maxlength="80" id="descricao"
 					value="#{produtoBean.produto.descricao}" required="true"
-					requiredMessage="O campo 'Descrição é obrigatório'" />
+					requiredMessage="O campo 'Descrição' é obrigatório" />
 
 				<p:outputLabel value="Quantidade" for="quantidade" />
 				<p:inputText maxlength="9" size="10" id="quantidade"
 					value="#{produtoBean.produto.quantidade}" required="true"
 					requiredMessage="O campo 'Quantidade' é obrigatório"
-					converterMessage="O valor informado no campo 'Quantidade' é inválido" />
+					converterMessage="O valor informado no campo 'Quantidade' é inválido" 
+					validatorMessage="Infome um valor entre 0 e 1000 para o campo Quantidade">
+					<f:validateLongRange minimum="0" maximum="1000"/>
+				</p:inputText>
 				
 				<p:outputLabel value="Fabricante" for="fabricante" />
 				<p:selectOneMenu id="fabricante" filter="true"
@@ -88,7 +93,10 @@
 				<p:inputNumber maxValue="99999" size="10" id="preco"
 					value="#{produtoBean.produto.preco}" required="true"
 					requiredMessage="O campo 'Preço' é obrigatório"
-					converterMessage="O valor informado no campo 'Preço' é inválido" />
+					converterMessage="O valor informado no campo 'Preço' é inválido" 
+					validatorMessage="Informe um valor entre 0,01 e 9.999,99 para o campo Preço">
+					<f:validateDoubleRange minimum="0.01" maximum="9999.99"/>
+				</p:inputNumber>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
