@@ -9,14 +9,22 @@
 	<title>Cadastro de Clientes</title>
 </h:head>
 <h:body>
-	<p:panel header="Cadastro de clientes">
-		<h:form>
-			<h:panelGrid columns="3">
+	<p:growl id="mensagem" />
+	
+	<h:form id="frmCadCliente">
+		<p:panel header="Cadastro de clientes">
+			<h:panelGrid columns="3" id="panelCliente">
 				<p:outputLabel value="Nome" />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Selecione." />
+				<p:selectOneMenu filter="true"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione uma pessoa" />
+					<f:selectItems value="#{pessoaBean.pessoas}" var="pessoa"
+						itemValue="#{pessoa}" itemLabel="#{pessoa.nome}" />
 				</p:selectOneMenu>
 				<p:commandButton value="Adicionar"
+					actionListener="#{pessoaBean.novo}"
+					update=":mensagem :frmCadPessoa:panel"
 					oncomplete="PF('dlgPessoa').show();" />
 
 				<p:outputLabel value="Liberado" />
@@ -28,53 +36,94 @@
 				<p:commandButton value="Cancelar" />
 				<p:button value="Listar clientes" outcome="clientes.xhtml" />
 			</h:panelGrid>
-		</h:form>
-	</p:panel>
+		</p:panel>
+	</h:form>
 
 	<p:dialog header="Dados Pessoais" widgetVar="dlgPessoa"
 		draggable="false" resizable="false" closable="false" modal="true">
-		<h:form>
+		<h:form id="frmCadPessoa">
+			<h:panelGrid id="panel" columns="2">
+				<p:outputLabel value="Nome" for="nome" />
+				<p:inputText id="nome" size="40" maxlength="50"
+					value="#{pessoaBean.pessoa.nome}" required="true"
+					requiredMessage="O campo Nome é obrigatório" />
+
+				<p:outputLabel value="CPF" for="cpf" />
+				<p:inputMask id="cpf" mask="999.999.999-99" size="18"
+					value="#{pessoaBean.pessoa.cpf}" required="true"
+					requiredMessage="O campo CPF é obrigatório" />
+
+				<p:outputLabel value="RG" for="rg" />
+				<p:inputText size="18" maxlength="12" id="rg"
+					value="#{pessoaBean.pessoa.rg}" required="true"
+					requiredMessage="O campo RG é obrigatório" />
+
+				<p:outputLabel value="Telefone" for="telefone" />
+				<p:inputMask mask="(99)9999-9999" size="18" id="telefone"
+					value="#{pessoaBean.pessoa.telefone}" required="true"
+					requiredMessage="O campo Telefone é obrigatório" />
+
+				<p:outputLabel value="Celular" for="celular" />
+				<p:inputMask mask="(99)99999-9999" size="18" id="celular"
+					value="#{pessoaBean.pessoa.celular}" required="true"
+					requiredMessage="O campo Celular é obrigatório" />
+
+				<p:outputLabel value="E-mail" for="email" />
+				<p:inputText size="40" maxlength="100" id="email"
+					value="#{pessoaBean.pessoa.email}" required="true"
+					requiredMessage="O campo Email é obrigatório" />
+
+				<p:outputLabel value="Rua" for="rua" />
+				<p:inputText size="40" maxlength="100" id="rua"
+					value="#{pessoaBean.pessoa.rua}" required="true"
+					requiredMessage="O campo Rua é obrigatório" />
+
+				<p:outputLabel value="Número" for="numero" />
+				<p:inputText size="18" maxlength="5" id="numero"
+					value="#{pessoaBean.pessoa.numero}" required="true"
+					requiredMessage="O campo Número é obrigatório" />
+
+				<p:outputLabel value="Bairro" for="bairro" />
+				<p:inputText size="18" maxlength="30" id="bairro"
+					value="#{pessoaBean.pessoa.bairro}" required="true"
+					requiredMessage="O campo Bairro é obrigatório" />
+
+				<p:outputLabel value="CEP" for="cep" />
+				<p:inputMask mask="99.999-999" size="18" id="cep"
+					value="#{pessoaBean.pessoa.cep}" />
+
+				<p:outputLabel value="Complemento" for="complemento" />
+				<p:inputText size="18" maxlength="10" id="complemento"
+					value="#{pessoaBean.pessoa.complemento}" />
+
+				<p:outputLabel value="Estado" for="estado" />
+				<p:selectOneMenu id="estado" filter="true"
+					converter="omnifaces.SelectItemsConverter"
+					value="#{pessoaBean.estadoSelecionado}">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione - Estado" />
+					<f:selectItems value="#{pessoaBean.estados}" var="estado"
+						itemLabel="#{estado.nome}" itemValue="#{estado}" />
+					<p:ajax listener="#{pessoaBean.popular}"
+						update=":frmCadPessoa:cidade" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Cidade" for="cidade" />
+				<p:selectOneMenu id="cidade" filter="true"
+					converter="omnifaces.SelectItemsConverter"
+					value="#{pessoaBean.pessoa.cidade}" required="true"
+					requiredMessage="O campo Cidade é obrigatório">
+					<f:selectItem noSelectionOption="true"
+						itemLabel="Selecione - Cidade" />
+					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
+						itemLabel="#{cidade.nome}" itemValue="#{cidade}" />
+				</p:selectOneMenu>
+			</h:panelGrid>
+
 			<h:panelGrid columns="2">
-				<p:outputLabel value="Nome" />
-				<p:inputText size="50" maxlength="50" />
-			</h:panelGrid>
-
-			<h:panelGrid columns="4">
-				<p:outputLabel value="CPF" />
-				<p:inputText size="15" maxlength="14" />
-				<p:outputLabel value="RG" />
-				<p:inputText size="15" maxlength="12" />
-
-				<p:outputLabel value="Telefone" />
-				<p:inputText size="15" maxlength="13" />
-				<p:outputLabel value="Celular" />
-				<p:inputText size="15" maxlength="14" />
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:outputLabel value="E-mail" />
-				<p:inputText size="50" maxlength="100" />
-
-				<p:outputLabel value="Rua" />
-				<p:inputText size="50" maxlength="100" />
-			</h:panelGrid>
-
-			<h:panelGrid columns="4">
-				<p:outputLabel value="Número" />
-				<p:inputText size="15" maxlength="5" />
-
-				<p:outputLabel value="Bairro" />
-				<p:inputText size="15" maxlength="30" />
-
-				<p:outputLabel value="CEP" />
-				<p:inputText size="15" maxlength="10" />
-
-				<p:outputLabel value="Complemento" />
-				<p:inputText size="15" maxlength="10" />
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar"
+					actionListener="#{pessoaBean.salvar}"
+					update=":mensagem :frmCadPessoa:panel frmCadCliente:panelCliente" />
 				<p:commandButton value="Cancelar"
 					oncomplete="PF('dlgPessoa').hide();" />
 			</h:panelGrid>

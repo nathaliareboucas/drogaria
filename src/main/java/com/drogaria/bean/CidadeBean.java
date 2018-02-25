@@ -56,7 +56,7 @@ public class CidadeBean implements Serializable {
 	public void listaEstados() {
 		try {
 			estadoDAO = new EstadoDAO();
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao listar os estados.");
 			erro.printStackTrace();

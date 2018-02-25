@@ -90,5 +90,22 @@ public class CidadeDAOTest {
 			System.out.println("Registro alterado com sucesso.");
 		}
 	}
+	
+	@Test
+	//@Ignore
+	public void buscarPorEstado() {
+		Long estadoCodigo = 1L;
+		
+		CidadeDAO cidadeDAO = new CidadeDAO();
+		List<Cidade> resultado = cidadeDAO.buscarPorEstado(estadoCodigo);
+
+		if (resultado.isEmpty()) {
+			System.out.println("Nenhum registro encontrado.");
+		} else {
+			for (Cidade cidade : resultado) {
+				System.out.println("Cidade: " + cidade.getNome() + " - Estado: " + cidade.getEstado().getNome());
+			}
+		}
+	}
 
 }
