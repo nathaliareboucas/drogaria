@@ -41,8 +41,8 @@ public class PessoaBean implements Serializable {
 	public void salvar() {
 		try {
 			pessoaDAO.merge(pessoa);
-			pessoa = new Pessoa();
-			pessoas = pessoaDAO.listar();
+			novo();
+			listar();
 			Messages.addGlobalInfo("Dados pessoais salvos com sucesso!");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao salvar os dados pessoas");
@@ -71,6 +71,7 @@ public class PessoaBean implements Serializable {
 
 	public void novo() {
 		pessoa = new Pessoa();
+		estadoSelecionado = null;
 		listarEstados();
 		cidades = new ArrayList<Cidade>();
 	}

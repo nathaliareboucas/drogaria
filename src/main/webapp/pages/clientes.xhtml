@@ -35,11 +35,13 @@
 				</p:column>
 
 				<p:column headerText="Liberado">
-					<h:outputText value="#{cliente.liberado}"/>
+					<p:selectBooleanCheckbox value="#{cliente.liberado}" disabled="true"/>
 				</p:column>
 
 				<p:column headerText="Data de cadastro" sortBy="#{cliente.dataCadastro}">
-					<h:outputText value="#{cliente.dataCadastro}"/>
+					<h:outputText value="#{cliente.dataCadastro}">
+						<f:convertDateTime locale="pt_BR"/>
+					</h:outputText>
 				</p:column>
 
 				<p:column headerText="Opções">

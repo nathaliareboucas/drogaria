@@ -22,10 +22,12 @@
 					<f:selectItems value="#{pessoaBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome}" />
 				</p:selectOneMenu>
-				<p:commandButton value="Adicionar"
-					actionListener="#{pessoaBean.novo}"
-					update=":mensagem :frmCadPessoa:panel"
-					oncomplete="PF('dlgPessoa').show();" />
+				<p:commandButton value="Adicionar" actionListener="#{pessoaBean.novo}"
+					update=":mensagem :frmCadPessoa:panel :frmCadPessoa:panel"
+					oncomplete="PF('dlgPessoa').show();" >
+					<f:actionListener
+					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+				</p:commandButton>
 
 				<p:outputLabel value="Liberado" />
 				<p:selectBooleanCheckbox />
