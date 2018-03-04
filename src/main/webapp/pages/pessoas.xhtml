@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Cadastro de Pessoas</title>
+</h:head>
+<h:body>
+	
+</h:body>
+	<p:growl id="mensagem"/>
+	
+	<p:panel header="Pessoas">
+		<h:form id="frmPessoas">
+			<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}" 
+				oncomplete="PF('dlgPessoa').show();"
+				update=":frmCadPessoa:painel">
+				<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+			</p:commandButton>
+			<br/><br/>
+			
+			<p:dataTable id="dtPessoas" emptyMessage="Nenhum registro encontrado" paginator="true"
+				paginatorPosition="bottom" value="#{pessoaBean.pessoas}" var="pessoa" rows="10">
+				<p:column headerText="Código" sortBy="#{pessoa.codigo}">
+					<h:outputText value="#{pessoa.codigo}"/>
+				</p:column>
+				
+				<p:column headerText="Nome" sortBy="#{pessoa.nome}">
+					<h:outputText value="#{pessoa.nome}"/>
+				</p:column>
+				
+				<p:column headerText="CPF">
+					<h:outputText value="#{pessoa.cpf}"/>
+				</p:column>
+				
+				<p:column headerText="Telefone">
+					<h:outputText value="#{pessoa.telefone}"/>
+				</p:column>
+				
+				<p:column headerText="Celular">
+					<h:outputText value="#{pessoa.celular}"/>
+				</p:column>
+				
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"/>
+					<p:commandButton icon="ui-icon-pencil"/>
+				</p:column>
+			</p:dataTable>
+		</h:form>
+	</p:panel>
+	
+	<p:dialog header="Cadastro de Pessoas" widgetVar="dlgPessoa">
+		<h:form id="frmCadPessoa">
+			<h:panelGrid columns="2" id="painel">
+				<p:outputLabel value="Nome" for="nome"/>
+				<p:inputText id="nome" size="30" maxlength="50"
+					value="#{pessoaBean.pessoa.nome}" required="true"
+					requiredMessage="O campo Nome é obrigatório"/>
+				
+				<p:outputLabel value="CPF" for="cpf"/>
+				<p:inputMask id="cpf" mask="999.999.999-99" size="15"
+					value="#{pessoaBean.pessoa.cpf}" required="true"
+					requiredMessage="O campo CPF é obrigatório"/>
+				
+				<p:outputLabel value="RG" for="rg"/>
+				<p:inputText id="rg" size="15" maxlength="12"
+					value="#{pessoaBean.pessoa.rg}" required="true"
+					requiredMessage="O campo RG é brigatório"/>
+				
+				<p:outputLabel value="Telefone" for="telefone"/>
+				<p:inputMask mask="(99)9999-9999" id="telefone" size="15"
+					value="#{pessoaBean.pessoa.telefone}" required="true"
+					requiredMessage="O campo Telefone é obrigatório"/>
+				
+				<p:outputLabel value="Celular" for="celular"/>
+				<p:inputMask mask="(99)99999.9999" id="celular" size="15"
+					value="#{pessoaBean.pessoa.celular}" required="true"
+					requiredMessage="O campo Celular é obrigatório"/>
+				
+				<p:outputLabel value="Email" for="email"/>
+				<p:inputText id="email" size="30" maxlength="100"
+					value="#{pessoaBean.pessoa.email}" required="true"
+					requiredMessage="O campo Email é obrigatório"/>
+				
+				<p:outputLabel value="Logradouro" for="logradouro"/>
+				<p:inputText id="logradouro" size="30" maxlength="100"
+					value="#{pessoaBean.pessoa.rua}" required="true"
+					requiredMessage="O campo Logradouro é obrigatório"/>
+				
+				<p:outputLabel value="Número" for="numero"/>
+				<p:inputText id="numero" size="15" maxlength="5"
+					value="#{pessoaBean.pessoa.numero}" required="true"
+					requiredMessage="O campo Número é obrigatório"/>
+				
+				<p:outputLabel value="Bairro" for="bairro"/>
+				<p:inputText id="bairro" size="15" maxlength="30"
+					value="#{pessoaBean.pessoa.bairro}" required="true"
+					requiredMessage="O campo Bairro é obrigatório"/>
+				
+				<p:outputLabel value="CEP" for="cep"/>
+				<p:inputMask mask="99.999-999" size="15" id="cep"
+					value="#{pessoaBean.pessoa.cep}"/>
+				
+				<p:outputLabel value="Complemento" for="complemento"/>
+				<p:inputText id="complemento" size="15" maxlength="10"
+					value="#{pessoaBean.pessoa.complemento}"/>	
+				
+				<p:outputLabel value="Estado" for="estado"/>
+				<p:selectOneMenu id="estado" filter="true" required="true"
+					value="#{pessoaBean.estadoSelecionado}"
+					converter="omnifaces.SelectItemsConverter"
+					requiredMessage="O campo Estado é obrigatório">				
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione - Estado" />
+					<f:selectItems value="#{pessoaBean.estados}" var="estado"
+						itemLabel="#{estado.nome}" itemValue="#{estado}" />
+					<p:ajax listener="#{pessoaBean.popular}"
+						update=":frmCadPessoa:cidade" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Cidade" for="cidade"/>
+				<p:selectOneMenu id="cidade" filter="true" required="true"
+					converter="omnifaces.SelectItemsConverter"
+					value="#{pessoaBean.pessoa.cidade}"
+					requiredMessage="O campo Cidade é obrigatório">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione - Cidade"/>
+					<f:selectItems value="#{pessoaBean.cidades}" var="cidade"
+						itemValue="#{cidade}" itemLabel="#{cidade.nome}"/>
+				</p:selectOneMenu>
+				
+				<p:commandButton value="Salvar" actionListener="#{pessoaBean.salvar}"
+					update=":mensagem :frmCadPessoa:painel :frmPessoas:dtPessoas"/>
+				<p:commandButton value="Cancelar" oncomplete="PF('dlgPessoa').hide();"/>
+			</h:panelGrid>
+		</h:form>
+	
+	</p:dialog>
+</html>

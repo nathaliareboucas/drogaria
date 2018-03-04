@@ -9,27 +9,40 @@
 	<title>Usuários</title>
 </h:head>
 <h:body>
+	<p:growl id="mensagem"/>
+	
 	<p:panel header="Usuários">
 		<h:form>
-			<p:commandButton value="Novo" oncomplete="PF('dlgUsuario').show();" />
+			<p:commandButton value="Novo" actionListener="#{usuarioBean.novo}" 
+			oncomplete="PF('dlgUsuario').show();"
+			update=":frmCadUsuario:painel">
+				<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+			</p:commandButton>
 			<br />
 			<br />
 
 			<p:dataTable emptyMessage="Nenhum registro encontrado."
-				paginator="true" paginatorPosition="bottom">
-				<p:column headerText="Código">
+				paginator="true" paginatorPosition="bottom" rows="10"
+				value="#{usuarioBean.usuarios}" var="usuario">
+				<p:column headerText="Código" sortBy="#{usuario.pessoa.codigo}">
+					<h:outputText value="#{usuario.pessoa.codigo}"/>
+				</p:column >
+
+				<p:column headerText="Nome" sortBy="#{usuario.pessoa.nome}">
+					<h:outputText value="#{usuario.pessoa.nome}"/>
 				</p:column>
 
-				<p:column headerText="Nome">
+				<p:column headerText="Tipo" sortBy="#{usuario.tipo}">
+					<h:outputText value="#{usuario.tipo}"/>
 				</p:column>
 
-				<p:column headerText="Tipo">
-				</p:column>
-
-				<p:column headerText="Ativo">
+				<p:column headerText="Ativo" sortBy="#{usuairio.ativo}">
+					<h:outputText value="#{usuario.ativo}"/>
 				</p:column>
 
 				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"/>
+					<p:commandButton icon="ui-icon-pencil"/>
 				</p:column>
 			</p:dataTable>
 		</h:form>
@@ -37,25 +50,28 @@
 
 	<p:dialog header="Cadastro de Usuários" widgetVar="dlgUsuario"
 		draggable="false" resizable="false" closable="false" modal="true">
-		<h:form>
-			<h:panelGrid columns="2">
+		<h:form id="frmCadUsuario">
+			<h:panelGrid columns="2" id="painel">
 				<p:outputLabel value="Usuário" />
-				<p:selectOneMenu filter="true">
-					<f:selectItem itemValue="" itemLabel="Selecione um usuário" />
+				<p:selectOneMenu filter="true" value="#{usuarioBean.usuario.pessoa}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um usuário" />
+					<f:selectItems value="#{usuarioBean.pessoas}" var="pessoa"
+						itemValue="#{pessoa}" itemLabel="#{pessoa.nome}"/>
 				</p:selectOneMenu>
 
-				<p:outputLabel value="Senha" />
-				<p:password size="20" maxlength="8" />
+				<p:outputLabel value="Senha" for="senha"/>
+				<p:password size="20" maxlength="8" id="senha" value="#{usuarioBean.usuario.senha}"/>
 
-				<p:outputLabel value="Tipo" />
-				<p:selectOneRadio>
+				<p:outputLabel value="Tipo" for="tipo"/>
+				<p:selectOneRadio id="tipo">
 					<f:selectItem itemValue="A" itemLabel="Administrador" />
 					<f:selectItem itemValue="G" itemLabel="Gerente" />
 					<f:selectItem itemValue="B" itemLabel="Balconista" />
 				</p:selectOneRadio>
 
 				<p:outputLabel value="Ativo" />
-				<p:selectBooleanCheckbox value="" />
+				<p:selectBooleanCheckbox/>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
