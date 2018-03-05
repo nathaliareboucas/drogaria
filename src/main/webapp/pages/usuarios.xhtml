@@ -12,7 +12,7 @@
 	<p:growl id="mensagem"/>
 	
 	<p:panel header="Usuários">
-		<h:form>
+		<h:form id="frmUsuarios">
 			<p:commandButton value="Novo" actionListener="#{usuarioBean.novo}" 
 			oncomplete="PF('dlgUsuario').show();"
 			update=":frmCadUsuario:painel">
@@ -21,7 +21,7 @@
 			<br />
 			<br />
 
-			<p:dataTable emptyMessage="Nenhum registro encontrado."
+			<p:dataTable emptyMessage="Nenhum registro encontrado." id="dtUsuarios"
 				paginator="true" paginatorPosition="bottom" rows="10"
 				value="#{usuarioBean.usuarios}" var="usuario">
 				<p:column headerText="Código" sortBy="#{usuario.pessoa.codigo}">
@@ -32,12 +32,12 @@
 					<h:outputText value="#{usuario.pessoa.nome}"/>
 				</p:column>
 
-				<p:column headerText="Tipo" sortBy="#{usuario.tipo}">
-					<h:outputText value="#{usuario.tipo}"/>
+				<p:column headerText="Tipo" sortBy="#{usuario.tipoFormatado}">
+					<h:outputText value="#{usuario.tipoFormatado}"/>
 				</p:column>
 
-				<p:column headerText="Ativo" sortBy="#{usuairio.ativo}">
-					<h:outputText value="#{usuario.ativo}"/>
+				<p:column headerText="Ativo" sortBy="#{usuairio.ativoFormatado}">
+					<h:outputText value="#{usuario.ativoFormatado}"/>
 				</p:column>
 
 				<p:column headerText="Opções">
@@ -53,29 +53,32 @@
 		<h:form id="frmCadUsuario">
 			<h:panelGrid columns="2" id="painel">
 				<p:outputLabel value="Usuário" />
-				<p:selectOneMenu filter="true" value="#{usuarioBean.usuario.pessoa}"
-					converter="omnifaces.SelectItemsConverter">
+				<p:selectOneMenu filter="true" value="#{usuarioBean.usuario.pessoa}" required="true"
+					converter="omnifaces.SelectItemsConverter"
+					requiredMessage="O campo Usuário é obrigatório">
 					<f:selectItem noSelectionOption="true" itemLabel="Selecione um usuário" />
 					<f:selectItems value="#{usuarioBean.pessoas}" var="pessoa"
 						itemValue="#{pessoa}" itemLabel="#{pessoa.nome}"/>
 				</p:selectOneMenu>
 
 				<p:outputLabel value="Senha" for="senha"/>
-				<p:password size="20" maxlength="8" id="senha" value="#{usuarioBean.usuario.senha}"/>
+				<p:password size="20" maxlength="8" id="senha" value="#{usuarioBean.usuario.senha}"
+					required="true" requiredMessage="O campo Senha é obrigatório"/>
 
 				<p:outputLabel value="Tipo" for="tipo"/>
-				<p:selectOneRadio id="tipo">
+				<p:selectOneRadio id="tipo" value="#{usuarioBean.usuario.tipo}">
 					<f:selectItem itemValue="A" itemLabel="Administrador" />
 					<f:selectItem itemValue="G" itemLabel="Gerente" />
 					<f:selectItem itemValue="B" itemLabel="Balconista" />
 				</p:selectOneRadio>
 
-				<p:outputLabel value="Ativo" />
-				<p:selectBooleanCheckbox/>
+				<p:outputLabel value="Ativo" for="ativo"/>
+				<p:selectBooleanCheckbox id="ativo" value="#{usuarioBean.usuario.ativo}"/>
 			</h:panelGrid>
 
 			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar" />
+				<p:commandButton value="Salvar" actionListener="#{usuarioBean.salvar}"
+					update=":mensagem :frmCadUsuario:painel :frmUsuarios:dtUsuarios"/>
 				<p:commandButton value="Cancelar"
 					oncomplete="PF('dlgUsuario').hide();" />
 			</h:panelGrid>
