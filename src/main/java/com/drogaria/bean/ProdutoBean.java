@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -45,6 +46,11 @@ public class ProdutoBean implements Serializable {
 		}
 
 	}
+	
+	public void editar(ActionEvent evento) {
+		produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+		listarFabricantes();
+	}
 
 	public void listar() {
 		try {
@@ -68,7 +74,6 @@ public class ProdutoBean implements Serializable {
 	public void novo() {
 		produto = new Produto();
 		listarFabricantes();
-
 	}
 
 	public Produto getProduto() {

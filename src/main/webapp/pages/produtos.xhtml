@@ -53,7 +53,12 @@
 					<p:commandButton icon="ui-icon-trash">
 					</p:commandButton>
 
-					<p:commandButton icon="ui-icon-pencil">
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{produtoBean.editar}"
+						oncomplete="PF('dlgProduto').show();"
+						update=":frmCadastroProdutos:painel">
+						<f:attribute name="produtoSelecionado" value="#{produto}"/>
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
