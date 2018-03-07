@@ -46,7 +46,14 @@
 				
 				<p:column headerText="Opções">
 					<p:commandButton icon="ui-icon-trash"/>
-					<p:commandButton icon="ui-icon-pencil"/>
+					
+					<p:commandButton icon="ui-icon-pencil" actionListener="#{pessoaBean.editar}" 
+						update=":frmCadPessoa:painel"
+						oncomplete="PF('dlgPessoa').show();">
+						<f:attribute value="#{pessoa}" name="pessoaSelecionada"/>
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
 		</h:form>

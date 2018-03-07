@@ -7,6 +7,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -57,6 +58,11 @@ public class PessoaBean implements Serializable {
 			Messages.addGlobalError("Erro ao salvar a pessoa");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void editar(ActionEvent evento) {
+		pessoa = (Pessoa) evento.getComponent().getAttributes().get("pessoaSelecionada");
+		listarEstados();
 	}
 
 	public void novo() {
