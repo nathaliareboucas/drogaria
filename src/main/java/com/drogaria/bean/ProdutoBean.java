@@ -52,6 +52,18 @@ public class ProdutoBean implements Serializable {
 		listarFabricantes();
 	}
 
+	public void excluir(ActionEvent evento) {
+		try {
+			produto = (Produto) evento.getComponent().getAttributes().get("produtoSelecionado");
+			produtoDAO.excluir(produto);
+			Messages.addGlobalInfo("Produto excluído com sucesso");
+			listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o produto");
+			erro.printStackTrace();
+		}		
+	}
+	
 	public void listar() {
 		try {
 			produtos = produtoDAO.listar();

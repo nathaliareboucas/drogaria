@@ -50,7 +50,10 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash">
+					<p:commandButton icon="ui-icon-trash" actionListener="#{produtoBean.excluir}"
+					update=":mensagem :frmProdutos:dtProdutos" >
+						<p:confirm header="Excluir" message="Deseja excluir o produto?" icon="ui-icon-alert"/>
+						<f:attribute name="produtoSelecionado" value="#{produto}"/>
 					</p:commandButton>
 
 					<p:commandButton icon="ui-icon-pencil" actionListener="#{produtoBean.editar}"
@@ -62,6 +65,11 @@
 					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+			</p:confirmDialog>
 		</h:form>
 	</p:panel>
 
