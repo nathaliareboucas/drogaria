@@ -58,6 +58,18 @@ public class UsuarioBean implements Serializable {
 		usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
 		listarPessoas();
 	}
+	
+	public void excluir(ActionEvent evento) {
+		try {
+			usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+			usuarioDAO.excluir(usuario);
+			Messages.addGlobalInfo("Usuário excluído com sucesso");
+			listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o usuário");
+			erro.printStackTrace();
+		}
+	}
 
 	public void novo() {
 		usuario = new Usuario();
