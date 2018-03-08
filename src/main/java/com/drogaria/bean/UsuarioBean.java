@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -51,6 +52,11 @@ public class UsuarioBean implements Serializable {
 			Messages.addGlobalError("Erro ao listar os usuários");
 			erro.printStackTrace();
 		}
+	}
+	
+	public void editar(ActionEvent evento) {
+		usuario = (Usuario) evento.getComponent().getAttributes().get("usuarioSelecionado");
+		listarPessoas();
 	}
 
 	public void novo() {
