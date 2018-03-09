@@ -11,11 +11,11 @@
 <h:body>
 	<p:growl id="mensagem"/>
 	
-	<h:form>
+	<h:form id="frmProdutos">
 		<p:panel header="Produtos"/>
 			<p:dataTable id="dtProdutos"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				paginatorPosition="bottom" rows="5" value="#{vendasBean.produtos}"
+				paginatorPosition="bottom" rows="3" value="#{vendasBean.produtos}"
 				var="produto">
 				<p:column headerText="Código" sortBy="#{produto.codigo}">
 					<h:outputText value="#{produto.codigo}" />
@@ -42,14 +42,18 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-plus"/>
+					<p:commandButton icon="ui-icon-plus" actionListener="#{vendasBean.adicionarNoCarrinho}"
+						update=":frmProdutos:dtCarrinho :frmProdutos:painelFinalizacao">
+						<f:attribute value="#{produto}" name="produtoSelecionado"/>
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			<br/>
 		
 		<p:panel header="Carrinho de Compras"/>
 			<p:dataTable id="dtCarrinho"
 				emptyMessage="Nenhum registro encontrado." paginator="true"
-				paginatorPosition="bottom" rows="5" value="#{vendasBean.itensVenda}"
+				paginatorPosition="bottom" rows="3" value="#{vendasBean.itensVenda}"
 				var="itemVenda">
 				<p:column headerText="Código" >
 					<h:outputText value="#{itemVenda.produto.codigo}" />
@@ -76,12 +80,22 @@
 				</p:column>
 
 				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-minus"/>
+					<p:commandButton icon="ui-icon-minus" actionListener="#{vendasBean.removerDoCarrinho}"
+						update=":frmProdutos:dtCarrinho :frmProdutos:painelFinalizacao">
+						<f:attribute value="#{itemVenda}" name="itemSelecionado"/>
+					</p:commandButton>
 				</p:column>
 			</p:dataTable>
+			<br/>
 		
-		<p:panel header="Total"/>
-			
+		<p:panel header="Finalizar"/>
+			<h:panelGrid id="painelFinalizacao" columns="3">
+				<p:outputLabel value="Total"/>
+				<p:outputLabel value="#{vendasBean.venda.valorTotal}">
+					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
+				</p:outputLabel>
+				<p:commandButton value="Finalizar Venda"/>
+			</h:panelGrid>
 	</h:form>
 </h:body>
 </html>
