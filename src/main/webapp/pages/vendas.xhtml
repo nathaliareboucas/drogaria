@@ -94,8 +94,38 @@
 				<p:outputLabel value="#{vendasBean.venda.valorTotal}">
 					<f:convertNumber locale="pt_BR" minFractionDigits="2"/>
 				</p:outputLabel>
-				<p:commandButton value="Finalizar Venda"/>
+				<p:commandButton value="Finalizar Venda" actionListener="#{vendasBean.finalizar}"
+					update=":mensagem :frmFinalizar:panelFinalizar"
+					oncomplete="PF('dlgFinalizar').show();"/>
 			</h:panelGrid>
 	</h:form>
+	
+	<p:dialog header="Finalizar Venda" widgetVar="dlgFinalizar" draggable="false"
+		resizable="false" closable="flase" modal="true">
+		<h:form id="frmFinalizar">
+			<h:panelGrid columns="2" id="panelFinalizar">
+				<p:outputLabel value="Funcionário" for="funcionario"/>
+				<p:selectOneMenu value="#{vendasBean.venda.funcionario}" filter="true" filterMatchMode="contains"
+					id="funcionario" converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um funcionário"/>
+					<f:selectItems value="#{vendasBean.funcionarios}" var="funcionario"
+						itemLabel="#{funcionario.pessoa.nome}" itemValue="#{funcionario}"/>
+				</p:selectOneMenu>
+				
+				<p:outputLabel value="Cliente" for="cliente"/>
+				<p:selectOneMenu value="#{vendasBean.venda.cliente}" filter="true" filterMatchMode="contains"
+					id="cliente" converter="omnifaces.SelectItemsConverter">
+					<f:selectItem noSelectionOption="true" itemLabel="Selecione um cliente"/>
+					<f:selectItems value="#{vendasBean.clientes}" var="cliente"
+						itemValue="#{cliente}" itemLabel="#{cliente.pessoa.nome}"/>
+				</p:selectOneMenu>
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar"/>
+				<p:commandButton value="Fechar" oncomplete="PF('dlgFinalizar').hide();"/>
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
 </h:body>
 </html>

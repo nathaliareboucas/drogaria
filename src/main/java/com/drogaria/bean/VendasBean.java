@@ -12,7 +12,11 @@ import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
+import com.drogaria.dao.ClienteDAO;
+import com.drogaria.dao.FuncionarioDAO;
 import com.drogaria.dao.ProdutoDAO;
+import com.drogaria.domain.Cliente;
+import com.drogaria.domain.Funcionario;
 import com.drogaria.domain.ItemVenda;
 import com.drogaria.domain.Produto;
 import com.drogaria.domain.Venda;
@@ -27,6 +31,8 @@ public class VendasBean implements Serializable {
 	private ProdutoDAO produtoDAO;
 	private List<ItemVenda> itensVenda;
 	private Venda venda;
+	private List<Cliente> clientes;
+	private List<Funcionario> funcionarios;
 
 	@PostConstruct
 	public void init() {
@@ -37,10 +43,10 @@ public class VendasBean implements Serializable {
 		try {
 			venda = new Venda();
 			venda.setValorTotal(new BigDecimal("0.00"));
-			
+
 			produtoDAO = new ProdutoDAO();
 			produtos = produtoDAO.listar();
-			
+
 			itensVenda = new ArrayList<>();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os produtos.");
@@ -89,13 +95,25 @@ public class VendasBean implements Serializable {
 		}
 		calcular();
 	}
-	
+
 	public void calcular() {
 		venda.setValorTotal(new BigDecimal("0.00"));
-		
+
 		for (int pos = 0; pos < itensVenda.size(); pos++) {
 			ItemVenda itemVenda = itensVenda.get(pos);
-			venda.setValorTotal(venda.getValorTotal().add(itemVenda.getValorParcial()));			
+			venda.setValorTotal(venda.getValorTotal().add(itemVenda.getValorParcial()));
+		}
+	}
+	
+	public void finalizar() {
+		try {
+			FuncionarioDAO funcionarioDAO = new FuncionarioDAO();
+			funcionarios = funcionarioDAO.listarOrdenado();
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clientes = clienteDAO.listarOrdenado();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao listar funcionários / clientes");
+			erro.printStackTrace();
 		}
 	}
 
@@ -117,5 +135,13 @@ public class VendasBean implements Serializable {
 
 	public void setVenda(Venda venda) {
 		this.venda = venda;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public List<Funcionario> getFuncionarios() {
+		return funcionarios;
 	}
 }
