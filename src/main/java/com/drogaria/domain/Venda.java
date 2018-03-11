@@ -17,13 +17,13 @@ public class Venda extends GenericDomain {
 	@Column(nullable = false)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date horario;
-
+	
 	@Column(nullable = false, precision = 7, scale = 2)
 	private BigDecimal valorTotal;
-
+	
 	@ManyToOne
 	private Cliente cliente;
-
+	
 	@ManyToOne
 	@JoinColumn(nullable = false)
 	private Funcionario funcionario;
@@ -59,5 +59,4 @@ public class Venda extends GenericDomain {
 	public void setFuncionario(Funcionario funcionario) {
 		this.funcionario = funcionario;
 	}
-
 }
