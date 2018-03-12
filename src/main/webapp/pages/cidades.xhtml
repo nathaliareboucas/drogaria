@@ -1,65 +1,65 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Cidades</title>
-</h:head>
-<h:body>
-	<p:growl id="mensagem" />
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
 
-	<h:form id="formListagem">
-		<p:panel header="Cidade">
-			<p:commandButton value="Novo"
-				actionListener="#{cidadeBean.novo}"
-				oncomplete="PF('dialogo').show();"
-				update=":mensagem :formCadastro:painel">
-				<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-			</p:commandButton>
-			<br />
-			<br />
 
-			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
-				paginator="true" paginatorPosition="bottom"
-				value="#{cidadeBean.cidades}" var="cidade" rows="10">
-				<p:column headerText="Código" sortBy="#{cidade.nome}">
-					<h:outputText value="#{cidade.codigo}" />
-				</p:column>
-
-				<p:column headerText="Nome" sortBy="#{cidade.nome}">
-					<h:outputText value="#{cidade.nome}" />
-				</p:column>
-
-				<p:column headerText="Estado" sortBy="#{cidade.estado.nome}">
-					<h:outputText value="#{cidade.estado.nome}" />
-					<h:outputText value=" - " />
-					<h:outputText value="#{cidade.estado.sigla}" />
-				</p:column>
-
-				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash" actionListener="#{cidadeBean.excluir}"
-						update=":mensagem :formListagem:tabela">
-						<p:confirm header="Excluir" message="Deseja excluir a cidade?"
-							icon="ui-icon-alert" />
-						<f:attribute name="cidadeSelecionada" value="#{cidade}" />
-					</p:commandButton>
-					<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}"
-						update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show();">
-						<f:attribute name="cidadeSelecionada" value="#{cidade}"/>
-						<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
-			
-			<p:confirmDialog global="true">
-				<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-				<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-			</p:confirmDialog>
+<ui:define name="conteudo">
+		<p:panel header="Cidade" styleClass="cabecalho">
+			<h:form id="formListagem">
+				<p:commandButton value="Novo"
+					actionListener="#{cidadeBean.novo}"
+					oncomplete="PF('dialogo').show();"
+					update=":mensagem :formCadastro:painel">
+					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+				</p:commandButton>
+				<br />
+				<br />
+	
+				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+					paginator="true" paginatorPosition="bottom"
+					value="#{cidadeBean.cidades}" var="cidade" rows="10">
+					<p:column headerText="Código" sortBy="#{cidade.nome}">
+						<h:outputText value="#{cidade.codigo}" />
+					</p:column>
+	
+					<p:column headerText="Nome" sortBy="#{cidade.nome}">
+						<h:outputText value="#{cidade.nome}" />
+					</p:column>
+	
+					<p:column headerText="Estado" sortBy="#{cidade.estado.nome}">
+						<h:outputText value="#{cidade.estado.nome}" />
+						<h:outputText value=" - " />
+						<h:outputText value="#{cidade.estado.sigla}" />
+					</p:column>
+	
+					<p:column headerText="Opções">
+						<p:commandButton icon="ui-icon-trash" actionListener="#{cidadeBean.excluir}"
+							update=":mensagem :formListagem:tabela">
+							<p:confirm header="Excluir" message="Deseja excluir a cidade?"
+								icon="ui-icon-alert" />
+							<f:attribute name="cidadeSelecionada" value="#{cidade}" />
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-pencil" actionListener="#{cidadeBean.editar}"
+							update=":mensagem :formCadastro:painel" oncomplete="PF('dialogo').show();">
+							<f:attribute name="cidadeSelecionada" value="#{cidade}"/>
+							<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+				
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+				</p:confirmDialog>
+			</h:form>			
 		</p:panel>
-	</h:form>
+	
 
 	<p:dialog header="Cadastro de cidades" widgetVar="dialogo"
 		draggable="false" resizable="false" modal="true" closable="false">
@@ -89,5 +89,5 @@
 			</h:panelGrid>
 		</h:form>
 	</p:dialog>
-</h:body>
-</html>
+</ui:define>
+</ui:composition>
