@@ -9,7 +9,7 @@
 	template="/templates/modelo.xhtml">
 
 
-<ui:define name="conteudo">
+	<ui:define name="conteudo">
 		<p:panel header="Cidade" styleClass="cabecalho">
 			<h:form id="formListagem">
 				<p:commandButton value="Novo"
@@ -61,33 +61,33 @@
 		</p:panel>
 	
 
-	<p:dialog header="Cadastro de cidades" widgetVar="dialogo"
-		draggable="false" resizable="false" modal="true" closable="false">
-		<h:form id="formCadastro">
-			<h:panelGrid id="painel" columns="2">
-				<p:outputLabel value="Nome" for="nome"/>
-				<p:inputText id="nome" maxlength="50" size="30"
-					value="#{cidadeBean.cidade.nome}" required="true"
-					requiredMessage="O campo 'Nome' é obrigatório." />
-
-				<p:outputLabel value="Estado" for="estado"/>
-				<p:selectOneMenu id="estado" filter="true" value="#{cidadeBean.cidade.estado}"
-					converter="omnifaces.SelectItemsConverter" required="true"
-					requiredMessage="É obrigatório selecionar um 'Estado'.">
-					<f:selectItem noSelectionOption="true"
-						itemLabel="Selecione um estado" />
-					<f:selectItems value="#{cidadeBean.estados}" var="estado"
-						itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
-				</p:selectOneMenu>
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{cidadeBean.salvar}"
-					update=":mensagem :formCadastro:painel :formListagem:tabela" />
-				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
-			</h:panelGrid>
-		</h:form>
-	</p:dialog>
-</ui:define>
+		<p:dialog header="Cadastro de cidades" widgetVar="dialogo"
+			draggable="false" resizable="false" modal="true" closable="false">
+			<h:form id="formCadastro">
+				<h:panelGrid id="painel" columns="2">
+					<p:outputLabel value="Nome" for="nome"/>
+					<p:inputText id="nome" maxlength="50" size="30"
+						value="#{cidadeBean.cidade.nome}" required="true"
+						requiredMessage="O campo 'Nome' é obrigatório." />
+	
+					<p:outputLabel value="Estado" for="estado"/>
+					<p:selectOneMenu id="estado" filter="true" value="#{cidadeBean.cidade.estado}"
+						converter="omnifaces.SelectItemsConverter" required="true"
+						requiredMessage="É obrigatório selecionar um 'Estado'.">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione um estado" />
+						<f:selectItems value="#{cidadeBean.estados}" var="estado"
+							itemValue="#{estado}" itemLabel="#{estado.nome} - #{estado.sigla}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+	
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{cidadeBean.salvar}"
+						update=":mensagem :formCadastro:painel :formListagem:tabela" />
+					<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
 </ui:composition>

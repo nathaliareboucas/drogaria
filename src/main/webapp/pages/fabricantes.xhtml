@@ -1,84 +1,81 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
-	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<title>Fabricantes</title>
-</h:head>
-<h:body>
-	<p:growl id="mensagem" />
-
-	<h:form id="frmFabricantes">
-		<p:panel header="Fabricantes">
-			<p:commandButton value="Novo" actionListener="#{fabricanteBean.novo}"
-				oncomplete="PF('dlgFabricante').show();"
-				update=":mensagem :frmCadastroFabricantes:painel">
-				<f:actionListener
-					type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-			</p:commandButton>
-			<br />
-			<br />
-
-			<p:dataTable id="dtFabricantes"
-				emptyMessage="Nenhum registro encontrado." paginator="true"
-				paginatorPosition="bottom" rows="10"
-				value="#{fabricanteBean.fabricantes}" var="fabricante">
-				<p:column headerText="Código" sortBy="#{fabricante.codigo}">
-					<h:outputText value="#{fabricante.codigo}" />
-				</p:column>
-
-				<p:column headerText="Descrição" sortBy="#{fabricante.descricao}">
-					<h:outputText value="#{fabricante.descricao}" />
-				</p:column>
-
-				<p:column headerText="Opções">
-					<p:commandButton icon="ui-icon-trash" actionListener="#{fabricanteBean.excluir}"
-						update=":mensagem :frmFabricantes:dtFabricantes">
-						<p:confirm header="Excluir" message="Deseja excluir o fabricante?"
-						icon="ui-icon-alert"/>
-						<f:attribute name="fabricanteSelecionado" value="#{fabricante}"/>
-					</p:commandButton>
-
-					<p:commandButton icon="ui-icon-pencil"
-						actionListener="#{fabricanteBean.editar}"
-						update=":frmCadastroFabricantes:painel"
-						oncomplete="PF('dlgFabricante').show();">
-						<f:attribute name="fabricanteSelecionado" value="#{fabricante}" />
-						<f:actionListener
-							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
-					</p:commandButton>
-				</p:column>
-			</p:dataTable>
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	template="/templates/modelo.xhtml">
+	
+	<ui:define name="conteudo">
+		<p:panel header="Fabricantes" styleClass="cabecalho">
+			<h:form id="frmFabricantes">
+				<p:commandButton value="Novo" actionListener="#{fabricanteBean.novo}"
+					oncomplete="PF('dlgFabricante').show();"
+					update=":mensagem :frmCadastroFabricantes:painel">
+					<f:actionListener
+						type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+				</p:commandButton>
+				<br />
+				<br />
+	
+				<p:dataTable id="dtFabricantes"
+					emptyMessage="Nenhum registro encontrado." paginator="true"
+					paginatorPosition="bottom" rows="10"
+					value="#{fabricanteBean.fabricantes}" var="fabricante">
+					<p:column headerText="Código" sortBy="#{fabricante.codigo}">
+						<h:outputText value="#{fabricante.codigo}" />
+					</p:column>
+	
+					<p:column headerText="Descrição" sortBy="#{fabricante.descricao}">
+						<h:outputText value="#{fabricante.descricao}" />
+					</p:column>
+	
+					<p:column headerText="Opções">
+						<p:commandButton icon="ui-icon-trash" actionListener="#{fabricanteBean.excluir}"
+							update=":mensagem :frmFabricantes:dtFabricantes">
+							<p:confirm header="Excluir" message="Deseja excluir o fabricante?"
+							icon="ui-icon-alert"/>
+							<f:attribute name="fabricanteSelecionado" value="#{fabricante}"/>
+						</p:commandButton>
+	
+						<p:commandButton icon="ui-icon-pencil"
+							actionListener="#{fabricanteBean.editar}"
+							update=":frmCadastroFabricantes:painel"
+							oncomplete="PF('dlgFabricante').show();">
+							<f:attribute name="fabricanteSelecionado" value="#{fabricante}" />
+							<f:actionListener
+								type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>		
+			
+				<p:confirmDialog global="true">
+					<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+				</p:confirmDialog>
+			</h:form>
 		</p:panel>
-		
-		<p:confirmDialog global="true">
-			<p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
-			<p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
-		</p:confirmDialog>
-	</h:form>
 
-
-	<p:dialog header="Cadastro de Fabricantes" widgetVar="dlgFabricante"
-		closable="false" resizable="false" draggable="false" modal="true">
-		<h:form id="frmCadastroFabricantes">
-			<h:panelGrid columns="2" id="painel">
-				<p:outputLabel value="Descrição" for="descricao"/>
-				<p:inputText size="50" maxlength="50" id="descricao"
-					value="#{fabricanteBean.fabricante.descricao}" required="true"
-					requiredMessage="O campo 'Descrição' é obrigatório." />
-			</h:panelGrid>
-
-			<h:panelGrid columns="2">
-				<p:commandButton value="Salvar"
-					actionListener="#{fabricanteBean.salvar}"
-					update=":mensagem :frmCadastroFabricantes:painel :frmFabricantes:dtFabricantes " />
-				<p:commandButton value="Cancelar"
-					oncomplete="PF('dlgFabricante').hide();" />
-			</h:panelGrid>
-		</h:form>
-	</p:dialog>
-</h:body>
-</html>
+		<p:dialog header="Cadastro de Fabricantes" widgetVar="dlgFabricante"
+			closable="false" resizable="false" draggable="false" modal="true">
+			<h:form id="frmCadastroFabricantes">
+				<h:panelGrid columns="2" id="painel">
+					<p:outputLabel value="Descrição" for="descricao"/>
+					<p:inputText size="50" maxlength="50" id="descricao"
+						value="#{fabricanteBean.fabricante.descricao}" required="true"
+						requiredMessage="O campo 'Descrição' é obrigatório." />
+				</h:panelGrid>
+	
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{fabricanteBean.salvar}"
+						update=":mensagem :frmCadastroFabricantes:painel :frmFabricantes:dtFabricantes " />
+					<p:commandButton value="Cancelar"
+						oncomplete="PF('dlgFabricante').hide();" />
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
+	</ui:define>
+</ui:composition>
