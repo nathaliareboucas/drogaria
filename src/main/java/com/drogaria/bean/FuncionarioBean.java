@@ -6,6 +6,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.event.ActionEvent;
 
 import org.omnifaces.util.Messages;
 
@@ -49,6 +50,23 @@ public class FuncionarioBean implements Serializable {
 			listar();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao salvar o funcionário");
+			erro.printStackTrace();
+		}
+	}
+	
+	public void editar(ActionEvent evento) {
+		funcionario = (Funcionario) evento.getComponent().getAttributes().get("funcionarioSelecionado");
+		listarPessoas();
+	}
+	
+	public void excluir(ActionEvent evento) {
+		funcionario = (Funcionario) evento.getComponent().getAttributes().get("funcionarioSelecionado");
+		try {
+			funcionarioDAO.excluir(funcionario);
+			Messages.addGlobalInfo("Funcionário excluído com sucesso");
+			listar();
+		} catch (RuntimeException erro) {
+			Messages.addGlobalError("Erro ao excluir o funcionário");
 			erro.printStackTrace();
 		}
 	}

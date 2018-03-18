@@ -40,10 +40,24 @@
 					</p:column>
 	
 					<p:column headerText="Opções">
-						<p:commandButton icon="ui-icon-trash"/>
-						<p:commandButton icon="ui-icon-pencil"/>
+						<p:commandButton icon="ui-icon-trash" actionListener="#{funcionarioBean.excluir}"
+							update=":mensagem :frmFuncionarios:dtFuncionarios">
+							<p:confirm message="Deseja excluir o funcionário?" header="Excluir" icon="ui-icon-alert"/>
+							<f:attribute name="funcionarioSelecionado" value="#{funcionario}"/>
+						</p:commandButton>
+						
+						<p:commandButton icon="ui-icon-pencil" actionListener="#{funcionarioBean.editar}"
+							update=":frmCadFuncionario:painel" oncomplete="PF('dlgFuncionario').show();">
+							<f:attribute name="funcionarioSelecionado" value="#{funcionario}"/>
+							<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+						</p:commandButton>
 					</p:column>
 				</p:dataTable>
+				
+				<p:confirmDialog global="true">
+					<p:commandButton type="button" value="Sim" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>
+					<p:commandButton type="button" value="Não" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>
+				</p:confirmDialog>
 			</h:form>
 		</p:panel>
 		
