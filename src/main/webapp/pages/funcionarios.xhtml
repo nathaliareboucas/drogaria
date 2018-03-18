@@ -9,29 +9,75 @@
 	
 	<ui:define name="conteudo">
 		<p:panel header="Funcionários" styleClass="cabecalho">
-			<h:form>
-				<p:button value="Novo" />
+			<h:form id="frmFuncionarios">
+				<p:commandButton value="Novo" actionListener="#{funcionarioBean.novo}"
+					update=":mensagem :frmCadFuncionario:painel"
+					oncomplete="PF('dlgFuncionario').show();">
+					<f:actionListener type="org.omnifaces.eventlistener.ResetInputAjaxActionListener"/>
+				</p:commandButton>
 				<br />
 				<br />
 	
-				<p:dataTable emptyMessage="Nenhum registro encontrado."
-					paginator="true" paginatorPosition="bottom">
-					<p:column headerText="Código">
+				<p:dataTable emptyMessage="Nenhum registro encontrado." id="dtFuncionarios"
+					paginator="true" paginatorPosition="bottom"
+					value="#{funcionarioBean.funcionarios}" var="funcionario" rows="10">
+					<p:column headerText="Código" sortBy="#{funcionario.codigo}">
+						<h:outputText value="#{funcionario.codigo}"/>
 					</p:column>
 	
-					<p:column headerText="Nome">
+					<p:column headerText="Nome" sortBy="#{funcionario.pessoa.nome}">
+						<h:outputText value="#{funcionario.pessoa.nome}"/>
 					</p:column>
 	
 					<p:column headerText="Carteira de trabalho">
+						<h:outputText value="#{funcionario.carteiraTrabalho}"/>
 					</p:column>
 	
-					<p:column headerText="Data de admissão">
+					<p:column headerText="Data de admissão" sortBy="#{funcionario.dataAdmissao}">
+						<h:outputText value="#{funcionario.dataAdmissao}">
+							<f:convertDateTime pattern="dd/MM/yyyy" locale="pt_BR"/>
+						</h:outputText>
 					</p:column>
 	
 					<p:column headerText="Opções">
+						<p:commandButton icon="ui-icon-trash"/>
+						<p:commandButton icon="ui-icon-pencil"/>
 					</p:column>
 				</p:dataTable>
 			</h:form>
 		</p:panel>
+		
+		<p:dialog header="Cadastro de Funcionários" widgetVar="dlgFuncionario"
+			draggable="false" resizable="false" closable="false" modal="true">
+			<h:form id="frmCadFuncionario">
+				<h:panelGrid columns="2" id="painel">
+					<p:outputLabel for="funcionario" value="Funcionário"/>
+					<p:selectOneMenu id="funcionario" filter="true" required="true"
+						requiredMessage="O campo Funcionário é obrigatório" 
+						value="#{funcionarioBean.funcionario.pessoa}"
+						converter="omnifaces.SelectItemsConverter">
+						<f:selectItem noSelectionOption="true" itemLabel="Selecione um funcioário"/>
+						<f:selectItems value="#{funcionarioBean.pessoas}" var="pessoa"
+							itemValue="#{pessoa}" itemLabel="#{pessoa.nome}"/>
+					</p:selectOneMenu>
+					
+					<p:outputLabel for="dataAdmissao" value="Data de Admissão"/>
+					<p:calendar id="dataAdmissao" value="#{funcionarioBean.funcionario.dataAdmissao}"
+						locale="pt_BR" required="true" size="22"
+						requiredMessage="O campo Data de Admissão é obrigatório"/>
+					
+					<p:outputLabel for="carteiraTrab" value="Carteira de Trabalho"/>
+					<p:inputText id="carteiraTrab" value="#{funcionarioBean.funcionario.carteiraTrabalho}"
+						required="true" size="22" maxlength="15" 
+						requiredMessage="O campo Carteira de Trabalho é obrigatório" />
+				</h:panelGrid>
+					
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar" actionListener="#{funcionarioBean.salvar}"
+						update=":mensagem :frmCadFuncionario:painel :frmFuncionarios:dtFuncionarios" />
+					<p:commandButton value="Cancelar" oncomplete="PF('dlgFuncionario').hide();"/>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
