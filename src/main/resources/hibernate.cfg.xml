@@ -30,7 +30,7 @@
 		<property name="show_sql">true</property>
 
 		<!-- Cria as tabelas do banco de dados -->
-		<property name="hbm2ddl.auto">validate</property>
+		<property name="hbm2ddl.auto">update</property>
 		
 		<!-- Mapeamento das entidades -->
 		<mapping class="com.drogaria.domain.Cidade"/>
@@ -43,7 +43,8 @@
 		<mapping class="com.drogaria.domain.Produto"/>
 		<mapping class="com.drogaria.domain.Usuario"/>
 		<mapping class="com.drogaria.domain.Venda"/>
-		
+		<mapping class="com.drogaria.domain.Caixa"/>
+		<mapping class="com.drogaria.domain.Movimentacao"/>
 		
 	</session-factory>
 
