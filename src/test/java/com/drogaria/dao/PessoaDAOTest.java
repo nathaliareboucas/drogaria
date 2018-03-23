@@ -77,12 +77,13 @@ public class PessoaDAOTest {
 	@Ignore
 	public void editar() {
 		PessoaDAO pessoaDAO = new PessoaDAO();
-		Pessoa pessoa = pessoaDAO.buscar(1L);
+		Pessoa pessoa = pessoaDAO.buscar(4L);
 
 		if (pessoa == null) {
 			System.out.println("Registro não encontrado.");
 		} else {
-			pessoa.setEmail("joao@gmail.com");
+			pessoa.setEmail("nathlia@email.com");
+			pessoa.setCpf("123.456.789-00");
 			pessoaDAO.editar(pessoa);
 			System.out.println("Registro alterado com sucesso.");
 		}

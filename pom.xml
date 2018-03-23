@@ -64,6 +64,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Apache Shiro Core / Segurança -->
+		<!-- https://mvnrepository.com/artifact/org.apache.shiro/shiro-core -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>1.2.4</version>
+		</dependency>
 
 	</dependencies>
 
