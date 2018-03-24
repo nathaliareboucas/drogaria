@@ -2,6 +2,7 @@ package com.drogaria.bean;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -41,6 +42,26 @@ public class AutenticacaoBean implements Serializable {
 				return;
 			}
 			Faces.redirect("./pages/home.xhtml");
+		} catch (IOException erro) {
+			erro.printStackTrace();
+			Messages.addGlobalError(erro.getMessage());
+		}
+	}
+	
+	public boolean temPermissoes(List<String> permissoes) {
+		for (String permissao:permissoes) {
+			if (usuarioLogado.getTipo() == permissao.charAt(0)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public void sair() {
+		iniciar();
+		usuarioLogado = null;
+		try {
+			Faces.redirect("./pages/autenticacao.xhtml");
 		} catch (IOException erro) {
 			erro.printStackTrace();
 			Messages.addGlobalError(erro.getMessage());
