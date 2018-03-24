@@ -7,12 +7,15 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<title>Autenticação</title>
+	<h:outputStylesheet library="css" name="estilo.css"/>
 </h:head>
-<h:body>
-	<p:growl id="mensagem"/>
-	<p:dialog header="Autenticação" closable="false" draggable="false" resizable="false" modal="true" visible="true">
-		<h:form id="frm">
-			<h:panelGrid columns="2" id="painel">
+<h:body styleClass="body-login">	
+	<p:growl id="mensagem"/>	
+	<div class="login">
+		<p:graphicImage name="logo.png" library="images"/>
+	
+		<h:form id="frm" >
+			<h:panelGrid columns="2" id="painel" styleClass="painel-login">
 				<p:outputLabel value="CPF" for="cpf"/>
 				<p:inputMask id="cpf" mask="999.999.999-99" required="true"
 					requiredMessage="O campo CPF é obrigatório"
@@ -24,11 +27,11 @@
 					value="#{autenticacaoBean.usuario.senha}"/>
 			</h:panelGrid>
 			
-			<h:panelGrid columns="1">
+			<h:panelGrid columns="1" styleClass="painel-login">
 				<p:commandButton value="Acessar" update=":mensagem :frm:painel"
 					actionListener="#{autenticacaoBean.autenticar}"/>
 			</h:panelGrid>
 		</h:form>	
-	</p:dialog>
+	</div>		
 </h:body>
 </html>

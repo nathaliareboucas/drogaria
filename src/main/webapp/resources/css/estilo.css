@@ -1,5 +1,20 @@
 @CHARSET "UTF-8";
 
+.body-login {
+	background-color: #00B8D4;
+}
+.login {	
+    width: 40%;
+    margin-top: 11%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.painel-login {
+	margin-left: auto;
+    margin-right: auto;
+    padding: 10px;    
+}
 #topo {	
 	background-color: #00B8D4;
 }
