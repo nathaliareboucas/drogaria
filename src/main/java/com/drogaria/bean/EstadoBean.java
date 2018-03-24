@@ -43,7 +43,7 @@ public class EstadoBean implements Serializable {
 
 	public void listar() {
 		try {
-			estados = estadoDAO.listar();
+			estados = estadoDAO.listar("nome");
 		} catch (RuntimeException error) {
 			Messages.addGlobalError("Erro ao tentar listar os estados.");
 			error.printStackTrace();

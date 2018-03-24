@@ -43,7 +43,7 @@ public class FabricanteBean implements Serializable {
 
 	public void listar() {
 		try {
-			fabricantes = fabricanteDAO.listar();
+			fabricantes = fabricanteDAO.listar("descricao");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalInfo("Erro ao tentar listar os fabricantes.");
 			erro.printStackTrace();

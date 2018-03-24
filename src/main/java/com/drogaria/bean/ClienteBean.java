@@ -50,7 +50,7 @@ public class ClienteBean implements Serializable {
 
 	public void listar() {
 		try {
-			clientes = clienteDAO.listar();
+			clientes = clienteDAO.listarOrdenado();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os clientes");
 			erro.printStackTrace();

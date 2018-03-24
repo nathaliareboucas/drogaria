@@ -46,7 +46,7 @@ public class CidadeBean implements Serializable {
 
 	public void listar() {
 		try {
-			cidades = cidadeDAO.listar();
+			cidades = cidadeDAO.listar("nome");
 		} catch (RuntimeException erro) {
 			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar as cidades");
 			erro.printStackTrace();

@@ -1,8 +1,11 @@
 package com.drogaria.dao;
 
+import java.util.List;
+
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 import com.drogaria.domain.Usuario;
@@ -21,6 +24,23 @@ public class UsuarioDAO extends GenericDAO<Usuario>{
 			consulta.add(Restrictions.eq("senha", hash.toHex()));
 			
 			Usuario resultado = (Usuario) consulta.uniqueResult();
+			return resultado;
+		} catch (RuntimeException erro) {
+			throw erro;
+		} finally {
+			sessao.close();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<Usuario> listarOrdenado() {
+		Session sessao = HibernateUtil.getFabricaDeSessoes().openSession();
+
+		try {
+			Criteria consulta = sessao.createCriteria(Usuario.class);
+			consulta.createAlias("pessoa", "p");
+			consulta.addOrder(Order.asc("p.nome"));
+			List<Usuario> resultado = consulta.list();
 			return resultado;
 		} catch (RuntimeException erro) {
 			throw erro;

@@ -66,7 +66,7 @@ public class ProdutoBean implements Serializable {
 	
 	public void listar() {
 		try {
-			produtos = produtoDAO.listar();
+			produtos = produtoDAO.listar("descricao");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os produtos.");
 			erro.printStackTrace();

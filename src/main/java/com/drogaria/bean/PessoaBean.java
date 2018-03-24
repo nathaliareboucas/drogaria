@@ -41,7 +41,7 @@ public class PessoaBean implements Serializable {
 
 	public void listar() {
 		try {
-			pessoas = pessoaDAO.listar();
+			pessoas = pessoaDAO.listar("nome");
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar as pessoas");
 			erro.printStackTrace();

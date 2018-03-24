@@ -35,7 +35,7 @@ public class FuncionarioBean implements Serializable {
 
 	public void listar() {
 		try {
-			funcionarios = funcionarioDAO.listar();
+			funcionarios = funcionarioDAO.listarOrdenado();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os funcionários");
 			erro.printStackTrace();

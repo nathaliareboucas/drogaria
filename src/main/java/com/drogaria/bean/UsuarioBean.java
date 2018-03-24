@@ -50,7 +50,7 @@ public class UsuarioBean implements Serializable {
 
 	public void listar() {
 		try {
-			usuarios = usuarioDAO.listar();
+			usuarios = usuarioDAO.listarOrdenado();
 		} catch (RuntimeException erro) {
 			Messages.addGlobalError("Erro ao listar os usuários");
 			erro.printStackTrace();
