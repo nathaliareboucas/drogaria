@@ -8,7 +8,7 @@
 	<display-name>Drogaria</display-name>
 	
 	<welcome-file-list>
-		<welcome-file>pages/home.xhtml</welcome-file>
+		<welcome-file>pages/autenticacao.xhtml</welcome-file>
 	</welcome-file-list>
 	
 	<!-- Estágio do projeto -->
