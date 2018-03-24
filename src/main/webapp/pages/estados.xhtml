@@ -24,7 +24,7 @@
 					emptyMessage="Nenhum registro encontrado." paginator="true"
 					paginatorPosition="bottom" value="#{estadoBean.estados}"
 					var="estado" rows="10">
-					<p:column headerText="Código">
+					<p:column headerText="Código" sortBy="#{estado.codigo}">
 						<h:outputText value="#{estado.codigo}" />
 					</p:column>
 	

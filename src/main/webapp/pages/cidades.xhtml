@@ -10,7 +10,7 @@
 
 
 	<ui:define name="conteudo">
-		<p:panel header="Cidade" styleClass="cabecalho">
+		<p:panel header="Cidades" styleClass="cabecalho">
 			<h:form id="formListagem">
 				<p:commandButton value="Novo"
 					actionListener="#{cidadeBean.novo}"
@@ -24,7 +24,7 @@
 				<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
 					paginator="true" paginatorPosition="bottom"
 					value="#{cidadeBean.cidades}" var="cidade" rows="10">
-					<p:column headerText="Código" sortBy="#{cidade.nome}">
+					<p:column headerText="Código" sortBy="#{cidade.codigo}">
 						<h:outputText value="#{cidade.codigo}" />
 					</p:column>
 	
